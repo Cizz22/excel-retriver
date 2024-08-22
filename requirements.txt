@@ -1,0 +1,11 @@
+Flask
+python-dotenv
+Flask-RESTful
+pytest-cov
+pytest-sugar
+pytest
+Redis
+flask-cors
+pandas
+gunicorn
+
