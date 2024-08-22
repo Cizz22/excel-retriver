@@ -57,7 +57,14 @@ def clean_data(data):
                 if row[0] == 'OUTPUT VARIABLE DESCRIPTION':
                     variable_type = 'out'
                 continue
-            cleaned_data.append([row[0], row[1], variable_type])
+
+            parts = row[0].split(": ", 1)
+
+            if len(parts) == 2:
+                cleaned_data.append(
+                    [parts[1], parts[0], row[1], variable_type])
+            else:
+                cleaned_data.append([row[0], '', row[1], variable_type])
 
     return cleaned_data
 
