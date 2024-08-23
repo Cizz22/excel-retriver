@@ -1,6 +1,10 @@
 import logging
 import os
 
+import dotenv
+
+dotenv.load_dotenv()
+
 DEBUG = os.getenv("ENVIRONEMENT") == "DEV"
 
 APPLICATION_ROOT = os.getenv("APPLICATION_ROOT", "/")
