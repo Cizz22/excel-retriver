@@ -58,15 +58,20 @@ def clean_data(data):
                     variable_type = 'out'
                 continue
 
-            parts = row[0].split(": ", 1)
-
-            if len(parts) == 2:
-                cleaned_data.append(
-                    [parts[1], parts[0], row[1], variable_type])
-            else:
-                cleaned_data.append([row[0], '', row[1], variable_type])
+            category, variable = get_category(row[0])
+            cleaned_data.append([variable, category, row[1], variable_type])
 
     return cleaned_data
+
+
+def get_category(data: str):
+
+    splits = data.split(': ', 1)
+
+    if len(splits) == 2:
+        return splits[0], splits[1]
+    else:
+        return None, data
 
 
 def get_output_data(data):
@@ -91,8 +96,3 @@ def get_output_data(data):
     return output_data
 
 
-# data = read_excel_data('/Users/user/programming/digital-twin/ExcelRetriver/dummy_data/TFELINK.xlsm')
-
-# output = get_output_data(data)
-
-# print(output)

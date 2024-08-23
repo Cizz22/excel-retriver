@@ -14,8 +14,7 @@ class ExcelsResource(Resource):
     def get(self):
         """Get All Excel File"""
 
-        files = read_excel_folder(
-            "/Users/user/programming/digital-twin/ExcelRetriver/dummy_data")
+        files = read_excel_folder(EXCEL_FOLDER_PATH)
 
         print(files)
         return response(200, True, "Get All Excel File", {"excels": files})
@@ -31,7 +30,7 @@ class ExcelResource(Resource):
         data = read_excel_data(excel_path)
         cleaned_data = clean_data(data)
 
-        return response(200, True, "Get excel variabels", [{"variabel": i[0], "unit": i[1], "type": i[2]} for i in cleaned_data])
+        return response(200, True, "Get excel variabels", [{"variabel": i[0],"category": i[1] ,"unit": i[2], "type": i[3]} for i in cleaned_data])
 
     @parse_params(
         Argument("inputs", type=dict, required=True, location="json")

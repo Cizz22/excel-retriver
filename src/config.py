@@ -10,7 +10,7 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 SECRET_KEY = os.getenv("APPLICATION_SECRET_KEY")
 IMAGE_URL = '/mnt/static/image/'
 
-EXCEL_FOLDER_PATH = os.getenv("EXCEL_FOLDER_PATH", "/Users/user/programming/digital-twin/ExcelRetriver/dummy_data")
+EXCEL_FOLDER_PATH = os.getenv("EXCEL_FOLDER_PATH")
 
 VARIABLES_CELL = os.getenv("VARIABLES_ROWS", "B7")
 UNIT_CELL = os.getenv("VARIABLES_ROWS", "C7")
