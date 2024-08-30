@@ -14,8 +14,45 @@ def read_excel_data(file_path):
     :rtype: pandas.DataFrame
     """
     df = pd.read_excel(file_path, sheet_name=0,
-                       engine='openpyxl', header=None).iloc[6:, 1:]
+                       engine='openpyxl', header=None).iloc[1:, 1:]
     return df
+
+
+def clean_input_data(data):
+
+    result = []
+
+    category = None
+    for row in data.values:
+        if pd.isna(row[0]):
+            continue
+        if row[2] == "Input":
+            category = row[0]
+            continue
+
+        if row[0] == "Primary:":
+            category = f"{category} {row[0]}" if category else row[0]
+            continue
+
+        if row[0] == "Secondary:":
+            category = f"{category.split(' ')[0]} {category.split(' ')[1]} {row[0]}"
+            continue
+
+        result.append([
+            row[0],
+            category,
+            row[1],
+            "in"
+        ])
+
+    return result
+
+
+# df = read_excel_data(
+#     "/Users/user/programming/digital-twin/ExcelRetriver/dummy_data/input.xlsx")
+
+
+# clean_input_data(df)
 
 
 def read_excel_folder(folder_path):
@@ -35,7 +72,7 @@ def read_excel_folder(folder_path):
         raise ValueError(f"Directory not found: {folder_path}")
 
 
-def clean_data(data):
+def clean_output_data(data):
     # Filter rows based on the headers and keep relevant rows
     """
     Filters rows based on the headers and keeps relevant rows.
@@ -56,6 +93,9 @@ def clean_data(data):
             if row[0] in headers:
                 if row[0] == 'OUTPUT VARIABLE DESCRIPTION':
                     variable_type = 'out'
+                continue
+
+            if variable_type == 'in':
                 continue
 
             category, variable = get_category(row[0])
@@ -91,8 +131,9 @@ def get_output_data(data):
 
         # Once capturing starts, append the output data
         if capture_output and isinstance(row[0], str):
+            if pd.isna(row[2]):
+                row[2] = 0
+                
             output_data[row[0]] = row[2]
 
     return output_data
-
-
