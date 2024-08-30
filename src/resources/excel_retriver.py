@@ -58,7 +58,7 @@ class ExcelResource(Resource):
             # Run Macro script (dummy using sleep 5 seconds)
 
             # Get Output
-            output = get_output_data(read_excel_data(excel_path))
+            output = get_output_data(read_excel_data("/Users/user/programming/digital-twin/ExcelRetriver/dummy_data/output.xlsm"))
 
             return response(200, True, "Post excel variabels", output)
 
