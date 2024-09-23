@@ -14,7 +14,7 @@ class ExcelsResource(Resource):
     def get(self):
         """Get All Excel File"""
 
-        files = read_excel_folder("/Users/user/programming/digital-twin/ExcelRetriver/dummy_data")
+        files = read_excel_folder("C:\PLN DIGITAL TWIN\excel-retriver\dummy_data")
 
         print(files)
         return response(200, True, "Get All Excel File", {"excels": files})
@@ -25,8 +25,8 @@ class ExcelResource(Resource):
 
     def get(self, excel_name):
         """ Get excel variabels """
-        out_path = os.path.join("/Users/user/programming/digital-twin/ExcelRetriver/dummy_data", "output.xlsm")
-        in_path = os.path.join("/Users/user/programming/digital-twin/ExcelRetriver/dummy_data", "input.xlsx")
+        out_path = os.path.join("C:\PLN DIGITAL TWIN\excel-retriver\dummy_data", "output.xlsm")
+        in_path = os.path.join("C:\PLN DIGITAL TWIN\excel-retriver\dummy_data", "input.xlsx")
 
         out = read_excel_data(out_path)
         inp = read_excel_data(in_path)
@@ -58,7 +58,7 @@ class ExcelResource(Resource):
             # Run Macro script (dummy using sleep 5 seconds)
 
             # Get Output
-            output = get_output_data(read_excel_data("/Users/user/programming/digital-twin/ExcelRetriver/dummy_data/output.xlsm"))
+            output = get_output_data(read_excel_data("C:\PLN DIGITAL TWIN\excel-retriver\dummy_data/output.xlsm"))
 
             return response(200, True, "Post excel variabels", output)
 
