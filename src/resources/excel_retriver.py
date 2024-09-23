@@ -7,14 +7,13 @@ from utils.read_excel import clean_input_data,clean_output_data, get_output_data
 from utils.write_excel import write_values_to_excel
 from flask_restful.reqparse import Argument
 
-
 class ExcelsResource(Resource):
     """ Excels resource """
 
     def get(self):
         """Get All Excel File"""
 
-        files = read_excel_folder("C:\PLN DIGITAL TWIN\excel-retriver\dummy_data")
+        files = read_excel_folder(EXCEL_FOLDER_PATH)
 
         print(files)
         return response(200, True, "Get All Excel File", {"excels": files})
@@ -25,8 +24,8 @@ class ExcelResource(Resource):
 
     def get(self, excel_name):
         """ Get excel variabels """
-        out_path = os.path.join("C:\PLN DIGITAL TWIN\excel-retriver\dummy_data", "output.xlsm")
-        in_path = os.path.join("C:\PLN DIGITAL TWIN\excel-retriver\dummy_data", "input.xlsx")
+        out_path = os.path.join(EXCEL_FOLDER_PATH, "output.xlsm")
+        in_path = os.path.join(EXCEL_FOLDER_PATH, "input.xlsx")
 
         out = read_excel_data(out_path)
         inp = read_excel_data(in_path)
@@ -58,7 +57,7 @@ class ExcelResource(Resource):
             # Run Macro script (dummy using sleep 5 seconds)
 
             # Get Output
-            output = get_output_data(read_excel_data("C:\PLN DIGITAL TWIN\excel-retriver\dummy_data/output.xlsm"))
+            output = get_output_data(read_excel_data(EXCEL_FOLDER_PATH))
 
             return response(200, True, "Post excel variabels", output)
 
